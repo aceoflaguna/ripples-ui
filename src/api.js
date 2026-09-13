@@ -89,7 +89,7 @@ async function request(path, { method = 'GET', body, auth = true, retry = true }
   }
 
   if (!res.ok) {
-    const message = data?.message || data?.error || `Request failed (${res.status})`;
+    const message = data?.errors[0].message || data?.message || data?.error || `Request failed (${res.status})`;
     throw new ApiError(message, res.status, data);
   }
 
