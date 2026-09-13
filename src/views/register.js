@@ -53,7 +53,10 @@ export function renderRegisterView(outlet) {
     try {
       await api.register({ username, email, password, confirmPassword });
       toast('Account created. Log in to continue.');
-      window.location.hash = '/login';
+      alert("Account created. Log in to continue.");
+      setTimeout(() => {
+        window.location.hash = '/login';
+      }, 1000);
     } catch (err) {
       errorBox.textContent = err.message || 'Could not create your account.';
       errorBox.classList.remove('d-none');
