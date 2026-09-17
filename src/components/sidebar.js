@@ -32,7 +32,7 @@ export async function loadSidebarCommunities(root) {
     }
     list.innerHTML = communities
       .map(
-        (c) => `<li><a href="#/c/${escapeHtml(c.name)}" class="sidebar-link">${escapeHtml(c.name)}</a></li>`
+        (c) => `<li><a href="#/c/${escapeHtml(c.id)}" class="sidebar-link">${escapeHtml(c.name)}</a></li>`
       )
       .join('');
   } catch {

@@ -17,7 +17,7 @@ export async function renderPostView(outlet, ctx) {
   }
 
   const community = post.community?.name || post.communityName || '';
-  const author = post.author?.username || post.username || 'unknown';
+  const author = post.author_username || 'unknown';
   const currentUser = getCurrentUser();
   const isOwner = currentUser && currentUser.username === author;
   const isLink = post.type === 'link' && post.url;

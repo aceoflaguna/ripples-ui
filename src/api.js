@@ -125,7 +125,7 @@ export const api = {
   getCommunities: ({ limit = 20, offset = 0 } = {}) =>
     request(`/communities?limit=${limit}&offset=${offset}`, { auth: false }),
   getCommunityById: (id) => request(`/communities/${id}`, { auth: false }),
-  getCommunityByName: (name) => request(`/communities/name/${encodeURIComponent(name)}`, { auth: false }),
+  getCommunityByName: (name) => request(`/communities/${encodeURIComponent(name)}`, { auth: false }),
   searchCommunities: (q, { limit = 10 } = {}) =>
     request(`/communities/search?q=${encodeURIComponent(q)}&limit=${limit}`, { auth: false }),
   joinCommunity: (id) => request(`/communities/${id}/join`, { method: 'POST' }),

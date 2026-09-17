@@ -29,9 +29,10 @@ export async function renderProfileView(outlet, ctx) {
       ${
         stats
           ? `<div class="profile-stats">
-              <span><strong>${stats.postCount ?? 0}</strong> posts</span>
-              <span><strong>${stats.commentCount ?? 0}</strong> comments</span>
+              <span><strong>${stats.post_count ?? 0}</strong> posts</span>
+              <span><strong>${stats.comment_count ?? 0}</strong> comments</span>
               <span><strong>${stats.karma ?? stats.totalKarma ?? 0}</strong> karma</span>
+              <span><strong>${stats.community_count ?? 0}</strong> communities </span>
             </div>`
           : ''
       }

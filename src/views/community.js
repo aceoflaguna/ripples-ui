@@ -23,7 +23,7 @@ export async function renderCommunityView(outlet, ctx) {
       <p class="community-description">${escapeHtml(community.description || '')}</p>
       <div class="d-flex gap-2">
         ${isLoggedIn() ? `<button id="join-btn" class="btn btn-sm btn-outline-accent">Join</button>` : ''}
-        <a href="#/submit?community=${encodeURIComponent(community.name)}" class="btn btn-sm btn-accent">Post here</a>
+        <a href="#/submit?community=${encodeURIComponent(community.name)}&community_id=${encodeURIComponent(community.id)}" class="btn btn-sm btn-accent">Post here</a>
       </div>
     </div>
     <div id="community-posts" class="post-list">
@@ -57,7 +57,7 @@ export async function renderCommunityView(outlet, ctx) {
   const list = outlet.querySelector('#community-posts');
   try {
     const res = await api.getCommunityPosts(community.id, { sortBy: 'hot', limit: 25 });
-    const posts = res?.data?.items || res?.data || [];
+    const posts = res?.data?.posts || res?.data || [];
     list.innerHTML = posts.length
       ? posts.map(renderPostRow).join('')
       : `<div class="empty-state"><p>No posts in this community yet. <a href="#/submit?community=${encodeURIComponent(community.name)}">Start one</a>.</p></div>`;

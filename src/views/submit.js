@@ -8,6 +8,7 @@ export function renderSubmitView(outlet, ctx) {
   }
 
   const presetCommunity = ctx?.query?.community || '';
+  const presetCommunityId = ctx?.query?.community_id || '';
 
   outlet.innerHTML = `
     <div class="auth-panel">
@@ -16,6 +17,10 @@ export function renderSubmitView(outlet, ctx) {
         <div class="mb-3">
           <label class="form-label" for="post-community">Community name</label>
           <input type="text" class="form-control" id="post-community" value="${escapeHtml(presetCommunity)}" placeholder="e.g. programming" required />
+        </div>
+        <div class="mb-3" hidden>
+          <label class="form-label" for="post-community">Community Id</label>
+          <input type="text" class="form-control" id="post-community-id" value="${escapeHtml(presetCommunityId)}" placeholder="e.g. programming" required />
         </div>
         <div class="mb-3">
           <label class="form-label" for="post-title">Title</label>
@@ -61,6 +66,7 @@ export function renderSubmitView(outlet, ctx) {
     errorBox.classList.add('d-none');
 
     const communityName = outlet.querySelector('#post-community').value.trim();
+    const communityId = outlet.querySelector('#post-community-id').value.trim();
     const title = outlet.querySelector('#post-title').value.trim();
     const isLink = outlet.querySelector('#type-link').checked;
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -68,11 +74,8 @@ export function renderSubmitView(outlet, ctx) {
     submitBtn.textContent = 'Posting\u2026';
 
     try {
-      const communityRes = await api.getCommunityByName(communityName);
-      const community = communityRes?.data;
-      if (!community) throw new Error(`No community named "${communityName}".`);
 
-      const payload = { communityId: community.id, title, type: isLink ? 'link' : 'text' };
+      const payload = { communityId: communityId, title, type: isLink ? 'link' : 'text' };
       if (isLink) {
         payload.url = outlet.querySelector('#post-url').value.trim();
       } else {
