@@ -3,7 +3,7 @@ import { escapeHtml, timeAgo, toast, requireAuth } from '../utils.js';
 import { renderVote, wireVotes } from './voteControl.js';
 
 function renderComment(comment) {
-  const author = comment.author?.username || comment.username || 'unknown';
+  const author = comment.author_username || comment.username || 'unknown';
   const score = comment.score ?? comment.voteScore ?? 0;
   const userVote = comment.userVote ?? 0;
   const replies = comment.replies || [];
