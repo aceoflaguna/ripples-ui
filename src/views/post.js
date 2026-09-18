@@ -99,7 +99,7 @@ export async function renderPostView(outlet, ctx) {
     try {
       const res = await api.getPostComments(post.id, { sortBy: 'best', limit: 50 });
       const comments = res?.data?.items || res?.data || [];
-      container.innerHTML = renderCommentThread(comments);
+      container.innerHTML = await renderCommentThread(comments);
       wireCommentThread(container, post.id, loadComments);
     } catch (err) {
       container.innerHTML = `<div class="alert alert-danger">${err.message || 'Could not load comments.'}</div>`;

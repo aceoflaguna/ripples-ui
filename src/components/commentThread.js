@@ -2,11 +2,28 @@ import { api, getCurrentUser } from '../api.js';
 import { escapeHtml, timeAgo, toast, requireAuth } from '../utils.js';
 import { renderVote, wireVotes } from './voteControl.js';
 
-function renderComment(comment) {
+
+function renderCommentReplies(comment) {
+  let author = comment.author_username || 'unknown';
+
+  return `
+    <li class="comment" data-comment-id="${comment.id}">
+      <div class="comment-row">
+        <div class="comment-body">
+          <p class="comment-meta">${escapeHtml(author)} &middot; ${timeAgo(comment.created_at || comment.createdAt)}</p>
+          <p class="comment-text">${escapeHtml(comment.content)}</p>
+        </div>
+      </div>
+    </li>`;
+}
+
+async function renderComment(comment) {
   const author = comment.author_username || comment.username || 'unknown';
   const score = comment.score ?? comment.voteScore ?? 0;
   const userVote = comment.userVote ?? 0;
-  const replies = comment.replies || [];
+
+  let repliesRes = await api.getCommentReplies(comment.id);
+  const replies = repliesRes.data || [];
   return `
     <li class="comment" data-comment-id="${comment.id}">
       <div class="comment-row">
@@ -22,18 +39,20 @@ function renderComment(comment) {
               <button type="button" class="btn btn-sm btn-ghost cancel-reply">Cancel</button>
             </div>
           </form>
-          ${replies.length ? `<ul class="comment-list nested">${replies.map(renderComment).join('')}</ul>` : ''}
+          ${replies.length ? `<ul class="comment-list nested">${replies.map(renderCommentReplies).join('')}</ul>` : ''}
         </div>
       </div>
     </li>`;
 }
 
-export function renderCommentThread(comments) {
+export async function renderCommentThread(comments) {
   if (!comments.length) {
     return '<p class="text-muted">No comments yet. Start the discussion.</p>';
   }
-  return `<ul class="comment-list">${comments.map(renderComment).join('')}</ul>`;
+  const renderedComments = await Promise.all(comments.map(renderComment));
+  return `<ul class="comment-list">${renderedComments.join('')}</ul>`;
 }
+
 
 export function wireCommentThread(container, postId, onReplyAdded) {
   wireVotes(container);
