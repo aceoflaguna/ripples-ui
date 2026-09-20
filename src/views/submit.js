@@ -16,7 +16,7 @@ export function renderSubmitView(outlet, ctx) {
       <form id="submit-form" novalidate>
         <div class="mb-3">
           <label class="form-label" for="post-community">Community name</label>
-          <input type="text" class="form-control" id="post-community" value="${escapeHtml(presetCommunity)}" placeholder="e.g. programming" required />
+          <input type="text" class="form-control" disabled id="post-community" value="${escapeHtml(presetCommunity)}" placeholder="e.g. programming" required />
         </div>
         <div class="mb-3" hidden>
           <label class="form-label" for="post-community">Community Id</label>

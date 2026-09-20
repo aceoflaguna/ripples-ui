@@ -24,7 +24,8 @@ export function wireVotes(container) {
 
       const dir = Number(btn.dataset.dir);
       const key = stack.dataset.voteKey;
-      const [type, id] = key.split('-');
+      const [type, ...rest] = key.split('-');
+      const id = rest.join('-');
       const target = type === 'post' ? { postId: id } : { commentId: id };
       const scoreEl = stack.querySelector('.vote-score');
       const upBtn = stack.querySelector('.vote-up');

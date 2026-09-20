@@ -29,7 +29,7 @@ export async function renderSearchView(outlet, ctx) {
       ? communities
           .map(
             (c) => `<li class="community-list-item">
-              <a href="#/c/${escapeHtml(c.name)}" class="community-list-name">${escapeHtml(c.name)}</a>
+              <a href="#/c/${escapeHtml(c.id)}" class="community-list-name">${escapeHtml(c.name)}</a>
               <p class="community-list-desc">${escapeHtml(c.description || '')}</p>
             </li>`
           )

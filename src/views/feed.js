@@ -14,7 +14,7 @@ export async function renderFeedView(outlet, ctx = {}) {
 
   outlet.innerHTML = `
     <div class="view-header">
-      <h1 class="view-title">Front page</h1>
+      <h1 class="view-title">Feeds:</h1>
       <div class="tab-strip" role="tablist">
         ${SORTS.map(
           (s) => `<a href="#/?sort=${s.key}" class="tab-link ${s.key === sortBy ? 'active' : ''}">${s.label}</a>`

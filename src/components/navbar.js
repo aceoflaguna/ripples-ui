@@ -11,7 +11,6 @@ export function renderNavbar() {
         <input type="search" name="q" class="search-input" placeholder="Search posts and communities" aria-label="Search" />
       </form>
       <nav class="topbar-actions">
-        <a href="#/submit" class="btn btn-sm btn-accent">Submit a post</a>
         ${
           user
             ? `<div class="dropdown">
