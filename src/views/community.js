@@ -16,13 +16,14 @@ export async function renderCommunityView(outlet, ctx) {
     outlet.innerHTML = `<div class="alert alert-danger">Community not found.</div>`;
     return;
   }
+  // disable join button if user is not logged in
+  // ${isLoggedIn() ? `<button id="join-btn" class="btn btn-sm btn-outline-accent">Join</button>` : ''}
 
   outlet.innerHTML = `
     <div class="community-header">
       <h1 class="view-title">${escapeHtml(community.name)}</h1>
       <p class="community-description">${escapeHtml(community.description || '')}</p>
       <div class="d-flex gap-2">
-        ${isLoggedIn() ? `<button id="join-btn" class="btn btn-sm btn-outline-accent">Join</button>` : ''}
         <a href="#/submit?community=${encodeURIComponent(community.name)}&community_id=${encodeURIComponent(community.id)}" class="btn btn-sm btn-accent">Post here</a>
       </div>
     </div>
